@@ -1,4 +1,6 @@
 isCelcius = true;
+citySearched = false;
+degreeType = "°C";
 temp;
 tempC;
 tempF;
@@ -50,6 +52,7 @@ async function getWeather() {
             isRaining = false;
         }
         currentCity = city;
+        citySearched = true;
         displayWeather();
     } else {
         document.getElementById("weather").innerHTML = "<p>Could not fetch weather data.</p>";
@@ -61,8 +64,25 @@ function displayWeather(){
             <p>City: ${currentCity}</p>
             <p>Temperature: ${temp}°${isCelcius ? "C" : "F"}</p>
             <p>Weather: ${weather}</p>
-            <p>Is it raining? ${isRaining ? "Yes, bring an umbrella!" : "No, it’s not raining."}</p>
         `;
+}
+
+function suggest(){
+    console.log("arrived");
+    suggests = document.getElementById("suggestions");
+    if(citySearched){ //checks if a city has been searched. need to get weather before suggesting.
+        suggests.innerHTML = `
+        <button onclick="suggest()">Suggestions</button>
+        <p>${isRaining ? "Wear a raincoat and bring an Umbrella!" : "It's not raining so dress for comfort!"}<p>
+        <p>${(tempC < 0 || tempF < 32) ? "It's below freezing at: " + temp + degreeType + "Dress warm!" : "It's not super cold! Temp: " + temp + degreeType + "so dress accordingly"}
+        `;    
+    }else{
+        suggests.innerHTML = `
+        <button onclick="suggest()">Suggestions</button>
+        <p>You need to search a city first!<p>
+        `;
+    }
+    
 }
 
 
@@ -75,8 +95,10 @@ async function switchDeg(){
     isCelcius = !isCelcius;
     if(isCelcius){
         temp = tempC;
+        degreeType = "°C";
     }else{
         temp = tempF;
+        degreeType = "°F";
     }
     const currentDegType = document.getElementById("degreeType");
     currentDegType.innerHTML = `${isCelcius ? "°C" : "°F"}`;
