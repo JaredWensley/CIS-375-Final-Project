@@ -5,6 +5,8 @@ temp;
 tempC;
 tempF;
 isRaining;
+iceRain;
+isSnowing;
 weather;
 currentCity;
 
@@ -27,6 +29,10 @@ async function fetchWeatherData(city, apiKey) {
 }
 
 async function getWeather() {
+    isRaining = false;
+    isSnowing = false;
+    iceRain = false;//Default values to false, they are changed as needed later.
+    
     const apiKey = "7ac4970e28324c2a16533429451cd695"; // Replace with your API key
     const city = document.getElementById("city").value;
     
@@ -46,10 +52,15 @@ async function getWeather() {
         if(!isCelcius){
             temp = tempF;
         }
+
+        if((weather.includes("rain") || data.rain) && (tempC <= 0 || tempF <=32)){
+            iceRain = true;
+        }
+
         if (weather.includes("rain") || data.rain){
             isRaining = true;
-        }else{
-            isRaining = false;
+        }else if(weather.includes("snow")){
+            isSnowing = true;
         }
         currentCity = city;
         citySearched = true;
@@ -73,16 +84,25 @@ function suggest(){
     if(citySearched){ //checks if a city has been searched. need to get weather before suggesting.
         suggests.innerHTML = `
         <button onclick="suggest()">Suggestions</button>
-        <p>${isRaining ? "Wear a raincoat and bring an Umbrella!" : "It's not raining so dress for comfort!"}<p>
-        <p>${(tempC < 0 || tempF < 32) ? "It's below freezing at: " + temp + degreeType + "Dress warm!" : "It's not super cold! Temp: " + temp + degreeType + "so dress accordingly"}
+        <p>${isRaining ? "Wear a raincoat and bring an Umbrella!" : "It's not raining so dress for comfort!"}</p>
+        <p>${(tempC < 7.5 || tempF < 45) ? "It's pretty chilly out there! Dress warm!" : "It's not super cold! Temp: so dress accordingly"}</p>
         `;    
     }else{
         suggests.innerHTML = `
         <button onclick="suggest()">Suggestions</button>
-        <p>You need to search a city first!<p>
+        <p>You need to search a city first!</p>
         `;
     }
-    
+    if(citySearched && isSnowing){
+        suggests.innerHTML += `
+        <p>It's snowing! Check for cancellations and be cautious on the roads!</p>
+        `;
+    }
+    if(citySearched && iceRain){
+        suggests.innerHTML += `
+        <p>ICE RAIN WARNING: It is below freezing and raining! Avoid driving if possible!</p>
+        `;
+    }
 }
 
 
