@@ -1,16 +1,46 @@
-isCelcius = true;
-citySearched = false;
-degreeType = "°C";
-temp;
-tempC;
-tempF;
-isRaining;
-iceRain;
-isSnowing;
-weather;
-currentCity;
+let isCelcius = true;
+let citySearched = false;
+let degreeType = "°C";
+let temp = 0;
+let tempC = 0;
+let tempF = 0;
+let isRaining = false;
+let iceRain = false;
+let isSnowing = false;
+let weather = null;
+let currentCity = null;
+const apiKey = "7ac4970e28324c2a16533429451cd695";
 
-async function fetchWeatherData(city, apiKey) {
+const http = new XMLHttpRequest()
+let result = document.querySelector("result")
+
+function findMyCoordinates() {
+    navigator.geolocation.getCurrentPosition((position) => {
+        const bdcAPI = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`;
+        
+        // Use a callback to handle when the city is set
+        getAPI(bdcAPI, (city) => {
+            console.log("City in findMyCoordinates:", city);
+            document.getElementById("city").value = city;
+            getWeather(); // Fetch weather data only after the city is resolved
+        });
+    });
+}
+
+function getAPI(url, callback) {
+    http.open("GET", url);
+    http.send();
+    http.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            const results = JSON.parse(this.responseText);
+            currentCity = results.locality ? results.locality.toString() : "Unknown";
+            console.log("City in getAPI:", currentCity);
+            callback(currentCity); // Pass the city to the callback
+        }
+    };
+}
+
+async function fetchWeatherData(city) {
     const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
     const url = `${baseUrl}?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -33,7 +63,6 @@ async function getWeather() {
     isSnowing = false;
     iceRain = false;//Default values to false, they are changed as needed later.
     
-    const apiKey = "7ac4970e28324c2a16533429451cd695"; // Replace with your API key
     const city = document.getElementById("city").value;
     
     if (!city) {
@@ -41,7 +70,7 @@ async function getWeather() {
         return;
     }
 
-    const data = await fetchWeatherData(city, apiKey);
+    const data = await fetchWeatherData(city);
     console.log(data);
 
     if (data) {
@@ -125,3 +154,4 @@ async function switchDeg(){
     displayWeather();
 }
 
+window.onload = findMyCoordinates();
