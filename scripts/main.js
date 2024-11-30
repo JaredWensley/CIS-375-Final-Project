@@ -29,20 +29,27 @@ class Suggestion {
         this.icyRoads = false;
         this.wearRaincoat = false;
         this.wearWarmClothes = false;
+        this.freezing = false;
     }
 
     updateSuggestions(weather) {
         this.icyRoads = weather.iceRain;
         this.wearRaincoat = weather.isRaining;
         this.wearWarmClothes = weather.tempC < 7.5;
+        this.freezing = weather.tempC < 0;
     }
 
     generateSuggestionText() {
         let suggestions = [];
         if (this.wearRaincoat) suggestions.push("Wear a raincoat and bring an umbrella!");
-        if (this.wearWarmClothes) suggestions.push("It's pretty chilly out there! Dress warm!");
+        if(this.freezing){
+            suggestions.push("It's below freezing out there! Dress extra warm!");
+        }
+        else if (this.wearWarmClothes){
+            suggestions.push("It's pretty chilly out there! Dress warm!");
+        } 
         if (this.icyRoads) suggestions.push("ICE RAIN WARNING: Avoid driving if possible!");
-        if (!this.wearRaincoat && !this.wearWarmClothes && !this.icyRoads) {
+                if (!this.wearRaincoat && !this.wearWarmClothes && !this.icyRoads) {
             suggestions.push("It's a nice day! Dress comfortably.");
         }
         return suggestions.join("<br>");
