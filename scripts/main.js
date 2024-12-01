@@ -22,31 +22,40 @@ class Weather {
         const header = document.querySelector(".header");
         const leftCol = document.querySelector(".left-column");
         const rightCol = document.querySelector(".right-column");
+        const buttons = document.querySelectorAll("button"); 
 
-        if(this.isSnowing){
-            header.style.backgroundColor = "#ADD8E6";
-            leftCol.style.backgroundColor = "#ADD8E6";
-            rightCol.style.backgroundColor = "#ADD8E6";
+        const root = document.documentElement; // Get the root element to set CSS variables
+
+        let color, hoverColor;
+        if (this.isSnowing) {
+            color = "#ADD8E6"; // Light blue for snow
+            hoverColor = "#87B8D4"; // Slightly darker blue
         } else if (this.isRaining) {
-            // Rain color: gray
-            header.style.backgroundColor = "#A9A9A9";
-            leftCol.style.backgroundColor = "#A9A9A9";
-            rightCol.style.backgroundColor = "#A9A9A9";
+            color = "#A9A9A9"; // Gray for rain
+            hoverColor = "#8F8F8F"; // Slightly darker gray
         } else if (this.iceRain) {
-            // Ice rain color: light cyan
-            header.style.backgroundColor = "#E0FFFF";
-            leftCol.style.backgroundColor = "#E0FFFF";
-            rightCol.style.backgroundColor = "#E0FFFF";
+            color = "#E0FFFF"; // Light cyan for ice rain
+            hoverColor = "#B2DFFF"; // Slightly darker cyan
         } else {
-            // Default color: blue
-            header.style.backgroundColor = "#007BFF";
-            leftCol.style.backgroundColor = "#007BFF";
-            rightCol.style.backgroundColor = "#007BFF";
+            color = "#007BFF"; // Default blue
+            hoverColor = "#000000";
+            // hoverColor = "#0056b3"; // Slightly darker blue 000000
         }
-
-       
+    
+        // Update header and column colors
+        header.style.backgroundColor = color;
+        leftCol.style.backgroundColor = color;
+        rightCol.style.backgroundColor = color;
+    
+        // Set the hover color dynamically
+        root.style.setProperty("--button-hover-color", hoverColor);
+    
+        // Update button background colors
+        buttons.forEach((button) => {
+            button.style.backgroundColor = color;
+            button.style.borderColor = color;
+        });
     }
-
 
     toFahrenheit(tempC) {
         return tempC * 1.8 + 32;
