@@ -38,8 +38,7 @@ class Weather {
             hoverColor = "#B2DFFF"; // Slightly darker cyan
         } else {
             color = "#007BFF"; // Default blue
-            hoverColor = "#000000";
-            // hoverColor = "#0056b3"; // Slightly darker blue 000000
+            hoverColor = "#0056b3"; // Slightly darker blue 000000
         }
     
         // Update header and column colors
@@ -47,14 +46,17 @@ class Weather {
         leftCol.style.backgroundColor = color;
         rightCol.style.backgroundColor = color;
     
-        // Set the hover color dynamically
-        root.style.setProperty("--button-hover-color", hoverColor);
-    
+        
         // Update button background colors
         buttons.forEach((button) => {
             button.style.backgroundColor = color;
             button.style.borderColor = color;
         });
+
+        // Set the hover color dynamically
+        root.style.setProperty("--button-bg-color", color);
+        root.style.setProperty("--button-hover-color", hoverColor);
+
     }
 
     toFahrenheit(tempC) {
@@ -114,6 +116,7 @@ class Location {
             this.weather.updateWeather(data);
             this.suggestion.updateSuggestions(this.weather);
             this.time = new Date();
+            console.log(this.time);
             return true;
         } catch (error) {
             console.error("Error fetching weather data:", error.message);
