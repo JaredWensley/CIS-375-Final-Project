@@ -3,25 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
     <script src="scripts/main.js"></script>
     <title>Weather App</title>
 </head>
 <body>
-    <h1>Weather App</h1>
-    <div>
-        <input type="text" id="city" placeholder="Enter city name" />
-        <button onclick="getWeather()">Get Weather</button>
+    <div class="header">
+        <h1>Weather App</h1>
     </div>
+    <div class="layout">
+        <div class="left-column"></div>
 
-    <div id="weather">
-        <p>Enter a city name and click "Get Weather" to see the results.</p>
+        <div class="container">
+            <div>
+                <input type="text" id="city" placeholder="Enter city name" />
+                <button onclick="getWeather()">Get Weather</button>
+            </div>
+
+            <div id="weather">
+                <p>Enter a city name and click "Get Weather" to see the results.</p>
+            </div>
+
+            <button onclick="switchDeg()">Switch C/F</button>
+            <p id="degreeType">°C</p>
+
+            <div id="suggestions">
+                <button onclick="displaySuggestions()">Suggestions</button>
+            </div>
+        </div>
+
+        <div class="right-column"></div>
     </div>
-    <button onclick="switchDeg()">Switch C/F</button><p id="degreeType">°C</p>
-
-
-    <div id="suggestions">
-        <button onclick="displaySuggestions()">Suggestions</button>
-    </div>
-
 </body>
 </html>

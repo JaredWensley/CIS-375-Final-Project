@@ -17,7 +17,36 @@ class Weather {
         this.isRaining = this.conditions.includes("rain") || data.rain;
         this.isSnowing = this.conditions.includes("snow");
         this.iceRain = this.isRaining && this.tempC <= 0;
+
+
+        const header = document.querySelector(".header");
+        const leftCol = document.querySelector(".left-column");
+        const rightCol = document.querySelector(".right-column");
+
+        if(this.isSnowing){
+            header.style.backgroundColor = "#ADD8E6";
+            leftCol.style.backgroundColor = "#ADD8E6";
+            rightCol.style.backgroundColor = "#ADD8E6";
+        } else if (this.isRaining) {
+            // Rain color: gray
+            header.style.backgroundColor = "#A9A9A9";
+            leftCol.style.backgroundColor = "#A9A9A9";
+            rightCol.style.backgroundColor = "#A9A9A9";
+        } else if (this.iceRain) {
+            // Ice rain color: light cyan
+            header.style.backgroundColor = "#E0FFFF";
+            leftCol.style.backgroundColor = "#E0FFFF";
+            rightCol.style.backgroundColor = "#E0FFFF";
+        } else {
+            // Default color: blue
+            header.style.backgroundColor = "#007BFF";
+            leftCol.style.backgroundColor = "#007BFF";
+            rightCol.style.backgroundColor = "#007BFF";
+        }
+
+       
     }
+
 
     toFahrenheit(tempC) {
         return tempC * 1.8 + 32;

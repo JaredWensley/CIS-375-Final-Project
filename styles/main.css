@@ -1,0 +1,121 @@
+/* Full-width header styling */
+.header {
+    width: 100%;
+    background-color: #007BFF; /* Blue background */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Layout styling for the body */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light blue background */
+}
+
+/* Layout container */
+.layout {
+    display: flex;
+    margin-top: 70px; /* Space below the fixed header */
+    height: calc(100vh - 70px); /* Full height minus the header */
+    width: 100%;
+}
+
+/* Left and right columns */
+.left-column,
+.right-column {
+    width: 250px; /* Fixed width equal to the header's height */
+    background-color: #007BFF; /* Light gray color */
+    height: calc(100vh - 70px); /* Full height minus the header */
+    position: relative;
+}
+   
+.container {
+    flex-grow: 1; /* Dynamically adjust size based on available space */
+    margin: 50px 20px; /* Keep some space between the container and columns */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 100%; /* Prevent overflow */
+}
+
+/* Adjust inputs and buttons for better alignment */
+input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 95%;
+    max-width: 400px;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Degree type styling */
+#degreeType {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+/* Style the suggestions section */
+#suggestions {
+    margin-top: 20px;
+}
