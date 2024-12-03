@@ -22,7 +22,8 @@ class Weather {
         const header = document.querySelector(".header");
         const leftCol = document.querySelector(".left-column");
         const rightCol = document.querySelector(".right-column");
-        const buttons = document.querySelectorAll("button"); 
+        const container = document.querySelector(".container");
+       
 
         const root = document.documentElement; // Get the root element to set CSS variables
 
@@ -46,17 +47,31 @@ class Weather {
         leftCol.style.backgroundColor = color;
         rightCol.style.backgroundColor = color;
     
-        
-        // Update button background colors
-        buttons.forEach((button) => {
-            button.style.backgroundColor = color;
-            button.style.borderColor = color;
-        });
 
         // Set the hover color dynamically
         root.style.setProperty("--button-bg-color", color);
         root.style.setProperty("--button-hover-color", hoverColor);
 
+
+        const currentTime = new Date();
+        const hour = currentTime.getHours();
+
+        let containerColor;
+         if(hour >=6 && hour < 12){
+            // Morning
+            containerColor = "#FFFACD";
+
+
+         }else if(hour >= 12 && hour < 18){
+            // Day
+            containerColor = "#F0E68C";
+
+         }else{
+            // Night
+            containerColor = "#2F4F4F";
+         }
+
+         container.style.backgroundColor = containerColor;
     }
 
     toFahrenheit(tempC) {
