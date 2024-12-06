@@ -10,8 +10,6 @@
 <body>
     <div class="header">
         <h1>Weather Finder</h1>
-        <br>
-        <p3> type your city in the search bar below</p3>
     </div>
     <div class="layout">
         <div class="left-column"></div>
@@ -22,16 +20,18 @@
                 <button onclick="getWeather()">Get Weather</button>
             </div>
 
-            <div id="weather">
-                <p>Enter a city name and click "Get Weather" to see the results.</p>
-            </div>
+            
+                <div id="weather-box" class="weather-box" hidden>
+                    <div id="weather data">
+                        <!--Weather data inserted here-->
+                    </div>
+                    <button onclick="switchDeg()">Switch C/F</button>
+                    <p id="degreeType">°C</p>
 
-            <button onclick="switchDeg()">Switch C/F</button>
-            <p id="degreeType">°C</p>
-
-            <div id="suggestions">
-                <button onclick="displaySuggestions()">Suggestions</button>
-            </div>
+                    <div id="suggestions">
+                        <button onclick="displaySuggestions()">Suggestions</button>
+                    </div>
+                </div>
         </div>
 
         <div class="right-column"></div>

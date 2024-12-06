@@ -1,15 +1,17 @@
 /* Full-width header styling */
 .header {
     width: 100%;
-    background-color: #007BFF; /* Blue background */
+    height:80px;
+    background-color: #013771; /* Blue background */
     color: white;
     text-align: center;
-    padding: 5px 0;
     position: fixed;
     top: 0;
     left: 0;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
 }
 
 /* Layout styling for the body */
@@ -30,19 +32,39 @@ body {
     width: 100%;
 }
 
-/* Left and right columns */
+.weather-box {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    position: absolute; /* Position it over the container */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust positioning */
+    text-align: center;
+    width: 80%; /* Adjust width as needed */
+    max-width: 400px; /* Limit the maximum width */
+    z-index: 2; /* Ensure it appears on top of the container */
+}
+
+.hidden {
+    display: none;
+}
+
+/* Left and right columns 
 .left-column,
 .right-column {
-    width: 250px; /* Fixed width equal to the header's height */
-    background-color: #007BFF; /* Light gray color */
-    height: calc(100vh - 70px); /* Full height minus the header */
+    width: 250px;  Fixed width equal to the header's height 
+    background-color: #007BFF; Light gray color 
+    height: calc(100vh - 70px); Full height minus the header
     position: relative;
-}
+}*/
    
 .container {
     flex-grow: 1; /* Dynamically adjust size based on available space */
-    margin: 50px 20px; /* Keep some space between the container and columns */
+    margin: 0px 0px; /* Keep some space between the container and columns */
     background: #ffffff;
+    background: url('../img/high-resolution-blue-background-g09nt3i1k5w4dpc1.jpg');
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
