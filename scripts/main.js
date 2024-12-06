@@ -25,8 +25,9 @@ class Weather {
         const container = document.querySelector(".container");
        
 
-        const root = document.documentElement; // Get the root element to set CSS variables
+        //const root = document.documentElement; // Get the root element to set CSS variables
 
+        /*
         let color, hoverColor;
         if (this.isSnowing) {
             color = "#ADD8E6"; // Light blue for snow
@@ -41,37 +42,19 @@ class Weather {
             color = "#007BFF"; // Default blue
             hoverColor = "#0056b3"; // Slightly darker blue 000000
         }
+            */
     
-        // Update header and column colors
-        header.style.backgroundColor = color;
-        leftCol.style.backgroundColor = color;
-        rightCol.style.backgroundColor = color;
+        // I want the colors to stay the same right now
+        //header.style.backgroundColor = color;
+        //leftCol.style.backgroundColor = color;
+        //rightCol.style.backgroundColor = color;
     
 
         // Set the hover color dynamically
-        root.style.setProperty("--button-bg-color", color);
-        root.style.setProperty("--button-hover-color", hoverColor);
+        //root.style.setProperty("--button-bg-color", color);
+        //root.style.setProperty("--button-hover-color", hoverColor);
 
 
-        const currentTime = new Date();
-        const hour = currentTime.getHours();
-
-        let containerColor;
-         if(hour >=6 && hour < 12){
-            // Morning
-            containerColor = "#FFFACD";
-
-
-         }else if(hour >= 12 && hour < 18){
-            // Day
-            containerColor = "#F0E68C";
-
-         }else{
-            // Night
-            containerColor = "#2F4F4F";
-         }
-
-         container.style.backgroundColor = containerColor;
     }
 
     toFahrenheit(tempC) {
@@ -147,14 +130,31 @@ let isCelcius = true;
 
 // DOM Updates
 function displayWeather() {
-    document.getElementById("weather").innerHTML = `
-        <p>City: ${currentLocation.city}</p>
-        <p>Temperature: ${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}</p>
-        <p>Weather: ${currentLocation.weather.conditions}</p>
+    
+    const weatherData =`
+    <p id="city-name">City: ${currentLocation.city}</p>
+            <p id="temperature">Temperature: ${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}</p>
+            <p id="weather-condition">Weather: ${currentLocation.weather.conditions}</p>
+            <button onclick="switchDeg()">Switch C/F</button>
+                <p id="degreeType">°C</p>
+
+                <div id="suggestions">
+                    <button onclick="displaySuggestions()">Suggestions</button>
+                </div>
     `;
+
+    // Have to make the weatherbox visible before you can access it's ID
+    const weatherbox = document.getElementById("weather-box");
+    
+    weatherbox.classList.remove("hidden");
+
+    document.getElementById("weather-box").innerHTML = weatherData;
+    
+    
 }
 
 function displaySuggestions() {
+
     document.getElementById("suggestions").innerHTML = `
         <button onclick="displaySuggestions()">Suggestions</button>
         <p>${currentLocation.suggestion.generateSuggestionText()}</p>
@@ -175,26 +175,59 @@ async function findMyCoordinates() {
         if (weatherFetched) {
             displayWeather();
         } else {
-            document.getElementById("weather").innerHTML = "<p>Could not fetch weather data.</p>";
+            document.getElementById("weather-data").innerHTML = "<p>Could not fetch weather data.</p>";
         }
     });
 }
 
-async function getWeather() {
-    const city = document.getElementById("city").value;
-    if (!city) {
-        document.getElementById("weather").innerHTML = "<p>Please enter a city name.</p>";
-        return;
-    }
 
-    currentLocation.city = city;
-    const weatherFetched = await currentLocation.fetchWeatherData(apiKey);
-    if (weatherFetched) {
-        displayWeather();
-    } else {
-        document.getElementById("weather").innerHTML = "<p>Could not fetch weather data.</p>";
+    
+    async function getWeather() {
+        const city = document.getElementById("city").value;
+        if (!city) {
+            document.getElementById("weather-box").innerHTML = "<p>Please enter a city name.</p>";
+            return;
+        }
+    
+        
+    
+        currentLocation.city = city;
+        const weatherFetched = await currentLocation.fetchWeatherData(apiKey);
+        if (weatherFetched) {
+            
+            
+            const weatherData =`
+            <p>City: ${currentLocation.city}</p>
+            <p>Temperature: ${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}</p>
+            <p>Weather: ${currentLocation.weather.conditions}</p>
+            <button onclick="switchDeg()">Switch C/F</button>
+                <p id="degreeType">°C</p>
+
+                <div id="suggestions">
+                    <button onclick="displaySuggestions()">Suggestions</button>
+                </div>
+            `;
+    
+            // Have to make the weatherbox visible before you can access it's ID
+            const weatherbox = document.getElementById("weather-box");
+            
+            weatherbox.classList.remove("hidden");
+    
+            document.getElementById("weather-box").innerHTML = weatherData;
+    
+            
+    
+    
+        } else {
+            const weatherbox = document.getElementById("weather-box");
+            weatherbox.classList.remove("hidden");
+            document.getElementById("weather-box").innerHTML = "<p>Could not fetch weather data.</p>";
+        }
+    
     }
-}
+    
+
+
 
 function switchDeg() {
     isCelcius = !isCelcius;
