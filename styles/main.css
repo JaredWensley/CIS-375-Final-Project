@@ -45,18 +45,21 @@ body {
     text-align: center;
     width: 100%; /* Adjust width as needed */
     height: 100%;
-    max-width: 800px; /* Limit the maximum width */
-    max-height: 400px;
+    max-width: 700px; /* Limit the maximum width */
+    max-height: 300px;
     
     z-index: 2; /* Ensure it appears on top of the container */
 }
 
+
+
 #city-name {
     font-size: 2.5rem;
     font-weight: bold;
-    text-align: right;
-    margin-right: 150px;
+    text-align: left;
+    margin-left: 380px;
     margin-top: 0;
+    font-family: 'Times New Roman', Times, serif;
 }
 #temperature {
     font-size: 2.5rem;
@@ -64,13 +67,44 @@ body {
     text-align: left;
     margin-left: 380px;
     margin-top: 0; 
+    font-family: 'Times New Roman', Times, serif;
 }
-#weather {
+#weather-condition {
     font-size: 2.5rem;
     font-weight: bold;
     text-align: left;
-    margin-right: 90px;
+    margin-left: 380px;
     margin-top: 0; 
+    margin-bottom: 3;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 380px;
+}
+
+#switchdeg {
+    height: 40px;
+    width: 100px;
+    
+}
+
+#displaysuggest {
+    height: 40px;
+    width: 100px;
+}
+
+#suggestion-text {
+    flex: 1; /* Allow it to take up space on the left */
+    text-align: left; /* Align text to the left */
+    font-size: 1.0rem;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+    width: 400px;
 }
 
 
@@ -79,8 +113,10 @@ body {
     font-size: 2.0rem;
     font-weight: bold;
     text-align: center;
-    
-    margin-top: 0; 
+}
+#switch-display {
+    padding-left: 20px;
+
 }
 
 
@@ -130,51 +166,4 @@ button {
 
 button:hover {
     background-color: var(--button-hover-color, #0056b3);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Degree type styling */
-#degreeType {
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-/* Style the suggestions section */
-#suggestions {
-    margin-top: 20px;
 }

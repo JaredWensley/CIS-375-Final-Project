@@ -131,12 +131,26 @@ let isCelcius = true;
 // DOM Updates
 function displayWeather() {
     
+    const cityName = document.getElementById("city-name");
+    const temperature = document.getElementById("temperature");
+    const weatherCondition = document.getElementById("weather-condition");
+
+
+    cityName.textContent = `City: ${currentLocation.city}`;
+    weatherCondition.textContent = `${currentLocation.weather.conditions}`;
+    temperature.textContent = `${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}`;
+    
+
+    const weatherbox = document.getElementById("weather-box");
+    
+    weatherbox.classList.remove("hidden");
+    
+    /*
     const weatherData =`
     <p id="city-name">City: ${currentLocation.city}</p>
             <p id="temperature">Temperature: ${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}</p>
             <p id="weather-condition">Weather: ${currentLocation.weather.conditions}</p>
             <button onclick="switchDeg()">Switch C/F</button>
-                <p id="degreeType">°C</p>
 
                 <div id="suggestions">
                     <button onclick="displaySuggestions()">Suggestions</button>
@@ -144,21 +158,23 @@ function displayWeather() {
     `;
 
     // Have to make the weatherbox visible before you can access it's ID
-    const weatherbox = document.getElementById("weather-box");
-    
-    weatherbox.classList.remove("hidden");
+   
 
     document.getElementById("weather-box").innerHTML = weatherData;
-    
+    */
     
 }
 
 function displaySuggestions() {
 
-    document.getElementById("suggestions").innerHTML = `
-        <button onclick="displaySuggestions()">Suggestions</button>
-        <p>${currentLocation.suggestion.generateSuggestionText()}</p>
-    `;
+    const suggestionText = currentLocation.suggestion.generateSuggestionText();
+
+    document.getElementById("suggestion-text").innerHTML = `<p>${suggestionText}</p>`
+
+   // document.getElementById("suggestions").innerHTML = `
+   //     <button onclick="displaySuggestions()">Suggestions</button>
+     //   <p1>${currentLocation.suggestion.generateSuggestionText()}</p1>
+   // `;
 }
 
 // Core Functions
@@ -185,7 +201,9 @@ async function findMyCoordinates() {
     async function getWeather() {
         const city = document.getElementById("city").value;
         if (!city) {
-            document.getElementById("weather-box").innerHTML = "<p>Please enter a city name.</p>";
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.textContent = "Please enter a city name.";
+            errorDiv.style.display = "block"; // Make the error message visible
             return;
         }
     
@@ -193,35 +211,35 @@ async function findMyCoordinates() {
     
         currentLocation.city = city;
         const weatherFetched = await currentLocation.fetchWeatherData(apiKey);
-        if (weatherFetched) {
-            
-            
-            const weatherData =`
-            <p>City: ${currentLocation.city}</p>
-            <p>Temperature: ${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}</p>
-            <p>Weather: ${currentLocation.weather.conditions}</p>
-            <button onclick="switchDeg()">Switch C/F</button>
-                <p id="degreeType">°C</p>
+        const errorDiv = document.getElementById("error-message");
 
-                <div id="suggestions">
-                    <button onclick="displaySuggestions()">Suggestions</button>
-                </div>
-            `;
-    
-            // Have to make the weatherbox visible before you can access it's ID
+        if (weatherFetched) {
+
+            errorDiv.textContent ="";
+            errorDiv.style.display="none";
+            
+            
+            const cityName = document.getElementById("city-name");
+            const temperature = document.getElementById("temperature");
+            const weatherCondition = document.getElementById("weather-condition");
+
+
+            cityName.textContent = `City: ${currentLocation.city}`;
+            weatherCondition.textContent = `${currentLocation.weather.conditions}`;
+            temperature.textContent = `${isCelcius ? currentLocation.weather.tempC : currentLocation.weather.tempF}°${isCelcius ? "C" : "F"}`;
+            
+
             const weatherbox = document.getElementById("weather-box");
             
             weatherbox.classList.remove("hidden");
-    
-            document.getElementById("weather-box").innerHTML = weatherData;
-    
+            
             
     
     
         } else {
-            const weatherbox = document.getElementById("weather-box");
-            weatherbox.classList.remove("hidden");
-            document.getElementById("weather-box").innerHTML = "<p>Could not fetch weather data.</p>";
+             // Display error message for invalid city
+        errorDiv.textContent = "City does not exist or could not fetch weather data. Check spelling and try again";
+        errorDiv.style.display = "block"; // Make the error message visible
         }
     
     }

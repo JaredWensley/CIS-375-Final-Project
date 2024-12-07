@@ -22,14 +22,23 @@
 
             
                 <div id="weather-box" class="weather-box hidden">
-                    <div id="weather-data">
+                    <p id="city-name">City:</p>
+                    <p id="weather-condition"></p>
+                    <p id="temperature"></p>
+                    <p id="error-message" style="color: red; display: none;"> <!-- Error message here --></p>
+                    
+                    
+                    <div id="button-container">
+                        <div id="suggestions">
+                            <button id="displaysuggest"onclick="displaySuggestions()">Suggestions</button>
+                        </div>
+                        <div id="suggestion-text">
+                            <!-- Suggestion text should appear here-->
+                        </div>
+                        <div id="switch-display">
+                            <button id="switchdeg" onclick="switchDeg()">Switch C/F</button>
+                        </div>
                         
-                    </div>
-                    <button onclick="switchDeg()">Switch C/F</button>
-                    <p id="degreeType"></p>
-
-                    <div id="suggestions">
-                        <button onclick="displaySuggestions()">Suggestions</button>
                     </div>
                 </div>
         </div>
