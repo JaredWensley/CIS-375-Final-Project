@@ -33,87 +33,93 @@ body {
 }
 
 .weather-box {
-    
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    background-color: rgba(250, 228, 103, 0.6); /* Semi-transparent white */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.2); /* Subtle shadow */
     position: absolute; /* Position it over the container */
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Adjust positioning */
-    text-align: center;
+    display: flex; /* Use flexbox to split into two sides */
+    align-items: center;
     width: 100%; /* Adjust width as needed */
     height: 100%;
-    max-width: 700px; /* Limit the maximum width */
-    max-height: 300px;
-    
+    max-width: 650px; /* Limit the maximum width */
+    max-height: 300px; /* Limit the maximum height */
     z-index: 2; /* Ensure it appears on top of the container */
 }
 
-
-
-#city-name {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: left;
-    margin-left: 380px;
-    margin-top: 0;
-    font-family: 'Times New Roman', Times, serif;
+/* Left side: Weather image container */
+#weather-image-container {
+    flex: 1; /* Take up equal space with the details */
+    position: relative;
+    text-align: center; /* Center-align the image */
+    width: 50%;
+    height: 100%;
 }
+
+#weather-image {
+    width: 200px; /* Adjust image size as needed */
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain; /* Ensure image fits nicely */
+    margin-bottom: 20px;
+}
+
+/* Right side: Weather details container */
+#weather-details-container {
+    text-align: left; /* Align text to the left */
+    width: 50%;
+    
+
+}
+
+/* Styling for weather details */
+#city-name,
+#weather-condition,
 #temperature {
     font-size: 2.5rem;
     font-weight: bold;
-    text-align: left;
-    margin-left: 380px;
-    margin-top: 0; 
     font-family: 'Times New Roman', Times, serif;
-}
-#weather-condition {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: left;
-    margin-left: 380px;
-    margin-top: 0; 
-    margin-bottom: 3;
-    font-family: 'Times New Roman', Times, serif;
+    margin: 20px 0; /* Add spacing between lines */
 }
 
+/* Button container styling */
 #button-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 380px;
-}
-
-#switchdeg {
-    height: 40px;
-    width: 100px;
     
+    align-items: center;
+    gap: 10px; /* Add spacing between buttons */
 }
 
+#switchdeg,
 #displaysuggest {
     height: 40px;
     width: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--button-bg-color, #007BFF);
+    color: white;
+    cursor: pointer;
 }
+
+
 
 #suggestion-text {
-    flex: 1; /* Allow it to take up space on the left */
-    text-align: left; /* Align text to the left */
-    font-size: 1.0rem;
+    position: absolute; /* Position relative to the parent container */
+    bottom: 10px; /* Align at the bottom */
+    left: 10px; /* Align to the left */
+    font-size: 1rem;
+    font-weight: bold;
     font-family: 'Times New Roman', Times, serif;
     color: black;
-    width: 400px;
+    text-align: left;
+    max-width: 90%; /* Prevent overflow */
 }
 
-
-
-#suggestions {
-    font-size: 2.0rem;
-    font-weight: bold;
-    text-align: center;
-}
 #switch-display {
     padding-left: 20px;
 

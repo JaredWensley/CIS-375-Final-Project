@@ -8,6 +8,9 @@ class Weather {
         this.iceRain = false;
     }
 
+
+
+
     updateWeather(data) {
         this.tempC = parseInt(data.main.temp);
         this.tempF = this.toFahrenheit(this.tempC);
@@ -23,39 +26,45 @@ class Weather {
         const leftCol = document.querySelector(".left-column");
         const rightCol = document.querySelector(".right-column");
         const container = document.querySelector(".container");
-       
 
-        //const root = document.documentElement; // Get the root element to set CSS variables
-
-        /*
-        let color, hoverColor;
-        if (this.isSnowing) {
-            color = "#ADD8E6"; // Light blue for snow
-            hoverColor = "#87B8D4"; // Slightly darker blue
-        } else if (this.isRaining) {
-            color = "#A9A9A9"; // Gray for rain
-            hoverColor = "#8F8F8F"; // Slightly darker gray
-        } else if (this.iceRain) {
-            color = "#E0FFFF"; // Light cyan for ice rain
-            hoverColor = "#B2DFFF"; // Slightly darker cyan
-        } else {
-            color = "#007BFF"; // Default blue
-            hoverColor = "#0056b3"; // Slightly darker blue 000000
-        }
-            */
-    
-        // I want the colors to stay the same right now
-        //header.style.backgroundColor = color;
-        //leftCol.style.backgroundColor = color;
-        //rightCol.style.backgroundColor = color;
-    
-
-        // Set the hover color dynamically
-        //root.style.setProperty("--button-bg-color", color);
-        //root.style.setProperty("--button-hover-color", hoverColor);
+        this.tempC = parseInt(data.main.temp);
+        this.conditions = data.weather[0].description.toLowerCase();
+        this.updateWeatherImage(this.conditions);
 
 
     }
+
+    updateWeatherImage(weatherCondition){
+        const weatherImage = document.getElementById("weather-image");
+        const weatherBox = document.getElementById("weather-box");
+        let imageUrl;
+        let backgroundColor;
+    
+    
+        if (weatherCondition.includes("clear")) {
+            imageUrl = "./img/sunny.png"; // Replace with your image path
+            backgroundColor = "rgba(250, 228, 103, 0.6)";
+        } else if (weatherCondition.includes("cloud")) {
+            imageUrl = "./img/cloudy.png"; // Replace with your image path
+            backgroundColor = "rgba(250, 243, 205, 0.6)";
+        } else if (weatherCondition.includes("rain")) {
+            imageUrl = "./img/raininging.png"; // Replace with your image path
+            backgroundColor = "rgba(99, 132, 163, 0.6)";
+        } else if (weatherCondition.includes("snow")) {
+            imageUrl = "./img/sunny.png"; // Replace with your image path
+            backgroundColor = "rgba(211, 230, 252, 0.9)";
+        } else if (eatherCondition.includes("lightning") || weatherCondition.includes("storm")) {
+            imageUrl = "./img/lightning.png"; // Replace with your image path
+             backgroundColor = "rgba(99, 132, 163, 0.6)";
+        } else {
+            imageUrl = "./img/sunny.png"; // Default image
+           backgroundColor = "rgba(250, 228, 103, 0.6)";
+        }
+    
+        weatherImage.src = imageUrl;
+        weatherBox.style.backgroundColor = backgroundColor;
+    }
+
 
     toFahrenheit(tempC) {
         return tempC * 1.8 + 32;
@@ -122,6 +131,13 @@ class Location {
         }
     }
 }
+
+
+
+
+
+
+
 
 // Global Variables
 const apiKey = "7ac4970e28324c2a16533429451cd695";
@@ -191,7 +207,7 @@ async function findMyCoordinates() {
         if (weatherFetched) {
             displayWeather();
         } else {
-            document.getElementById("weather-data").innerHTML = "<p>Could not fetch weather data.</p>";
+            document.getElementById("weather-box").innerHTML = "<p>Could not fetch weather data.</p>";
         }
     });
 }

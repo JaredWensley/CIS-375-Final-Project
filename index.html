@@ -19,27 +19,33 @@
                 <input type="text" id="city" placeholder="Enter city name" />
                 <button onclick="getWeather()">Get Weather</button>
             </div>
-
-            
                 <div id="weather-box" class="weather-box hidden">
-                    <p id="city-name">City:</p>
-                    <p id="weather-condition"></p>
-                    <p id="temperature"></p>
-                    <p id="error-message" style="color: red; display: none;"> <!-- Error message here --></p>
                     
-                    
-                    <div id="button-container">
-                        <div id="suggestions">
-                            <button id="displaysuggest"onclick="displaySuggestions()">Suggestions</button>
-                        </div>
+                    <div id="weather-image-container">
+                        <img id="weather-image" src="" alt="weather icon"/>
+
                         <div id="suggestion-text">
                             <!-- Suggestion text should appear here-->
                         </div>
-                        <div id="switch-display">
-                            <button id="switchdeg" onclick="switchDeg()">Switch C/F</button>
-                        </div>
-                        
                     </div>
+
+                    <div id="weather-details-container">
+
+                        <p id="city-name">City:</p>
+                        <p id="weather-condition"></p>
+                        <p id="temperature"></p>
+                        <p id="error-message" style="color: red; display: none;"> <!-- Error message here --></p>
+                            
+                        <div id="button-container">
+                            <div id="suggestions">
+                                <button id="displaysuggest"onclick="displaySuggestions()">Suggestions</button>
+                            </div>
+                            
+                            <div id="switch-display">
+                                <button id="switchdeg" onclick="switchDeg()">Switch C/F</button>
+                            </div>
+                        </div>
+                    </div>  
                 </div>
         </div>
 
