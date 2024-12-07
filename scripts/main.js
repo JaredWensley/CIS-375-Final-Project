@@ -51,7 +51,7 @@ class Weather {
             imageUrl = "./img/raininging.png"; // Replace with your image path
             backgroundColor = "rgba(99, 132, 163, 0.6)";
         } else if (weatherCondition.includes("snow")) {
-            imageUrl = "./img/sunny.png"; // Replace with your image path
+            imageUrl = "./img/snowing.png"; // Replace with your image path
             backgroundColor = "rgba(211, 230, 252, 0.9)";
         } else if (eatherCondition.includes("lightning") || weatherCondition.includes("storm")) {
             imageUrl = "./img/lightning.png"; // Replace with your image path
