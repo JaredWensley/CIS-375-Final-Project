@@ -26,7 +26,10 @@ class Weather {
         const leftCol = document.querySelector(".left-column");
         const rightCol = document.querySelector(".right-column");
         const container = document.querySelector(".container");
+        const suggestions = document.getElementById("suggestion-text");
 
+
+        suggestions.innerHTML = "";
         this.tempC = parseInt(data.main.temp);
         this.conditions = data.weather[0].description.toLowerCase();
         this.updateWeatherImage(this.conditions);
